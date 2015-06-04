@@ -1,0 +1,4 @@
+{
+    "status": "error",
+    "error": " error message  or arrray of error messages like 'field1':'errMgs1', 'field2': 'errMsg2' ] "
+}

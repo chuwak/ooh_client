@@ -1,0 +1,19 @@
+{
+    "status": "success",
+    "data": {
+        "Contrtactor": {
+            "id": 1,
+            "username": "123",
+            "password": "123",
+            "firstname": "Jonh",
+            "lastname": "Fisher",
+            "email": "email@email.com",
+            "address": "city street 12345",
+            "country": "GB",
+            "phone": "123456",
+            "mobile": "000-123-456-78",
+            "website": "www.fffff.com",
+            "roleId": 2
+        }
+    }
+}

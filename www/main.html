@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OOH</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <!-- === Jquery with plugins === -->
+        <script type="text/javascript" src="js/libs/jq/jquery.min.js"></script>
+        <script type="text/javascript" src="js/libs/jq/jquery.color-2.1.0.min.js"></script>
+        <script type="text/javascript" src="js/libs/block_ui.js"></script>
+        <script type="text/javascript" src="js/libs/noty/jquery.noty.packaged.js"></script>
+
+        <!-- === Scrollbars ===  -->
+        <!--        <script type="text/javascript" src="js/libs/scroll/jquery.mCustomScrollbar.min.js"></script>
+                <link href="js/libs/scroll/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />-->
+        <!--<script type="text/javascript" src="js/libs/scroll/jquery.nicescroll.min.js"></script>-->
+
+
+        <!-- === Local files ===  -->
+        <script src="js/beans.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/logic.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/requests.js"></script>
+        <script src="js/lang.js"></script>
+
+
+
+
+    </head>
+    <body id="body" class="landscape">
+        <div id="inner-body" class="inner-body">
+            <header class="header">
+                <div class="menu-btn-wrapper">
+                    <b id="open-menu-btn" class="btn open-menu-btn" onclick="openMenu('main')"><span class="inner-bg"></span></b>
+                    <div id="context-menu" class="context-menu main-context-menu" style="display: none;">
+                        <!--<span class="c-menu-item"> <b onclick="actionUpdateWorkOrders();">Update work Orders</b> <span class="checker"></span> </span>-->
+                        <span class="c-menu-item"> <b onclick="actionSynchronize();">Synchronise</b> </span>
+                        <span class="c-menu-item"> <b onclick="exitFromApp();">Exit</b> </span>
+                        <span class="c-menu-item c-menu-footer">
+                            <em onclick="logout();">Logout</em> 
+                            <b class="save-prefs-btn" onclick="closeMenu()">Cancel</b> 
+                        </span>
+                    </div>
+                </div>
+                <div class="user-data">
+                    <span class="user-image">
+                        <span class="count"> 0 </span>
+                    </span>
+
+                    <span id="user-name" class="user-name">First Last</span>
+                </div>
+
+                <div class="settings-btn-wrapper">
+                    <b id="settings-menu-btn" class="btn settings-btn" onclick="openMenu('settings');"> <span class="inner-bg"></span> </b>
+                    <div id="settings-menu" class="context-menu settings-context-menu" style="display: none;">
+                        <span class="c-menu-item"><em> Version <span id="version"> -- </span> </em></span>
+                        <span class="c-menu-item"><em onclick="actionCheckForUpdate();"> Check for update </em> </span>
+                        <span class="c-menu-item c-menu-footer">
+                            <em onclick="closeMenu();">Cancel</em> 
+                        </span>
+                    </div>
+                </div>
+                <div class="fullscreen-btn-wrapper">
+                    <b id="fs-menu-btn" class="btn fullscreen-btn" onclick="actionSetFullscreen(this);"> <span class="inner-bg"></span> </b>
+                </div>
+                <div id="upload-block" class="upload-block">
+                    <span id="upload-percentage-complete" class="percentage">0 %</span>
+                    <img class="upload-image" alt="" src="./img/upwards.gif"/>
+                </div>
+                <div class="title-wrapper">
+                    <strong>Prismaflex OOH Manager</strong>
+                </div>
+                <span class="clear"></span>
+            </header>
+            <div class="navigation">
+                <div class="breadcrumbs">
+                    <span id="breadcrumbs-item-pattern" class="item pattern" > <em class="item-text">{{title}}</em> <span class="arrow"></span> </span> 
+                    <span class="item"> Work Orders <span class="arrow"></span> </span>
+
+                </div>
+                <div id="date" class="date">  </div>
+                <span class="clear"></span>
+            </div>
+            <div class="content">
+                <div class="main-menu">
+                    <!--<span id="home-btn"  class="menu-btn btn home-icon" onclick="showHomeTab()" ><span class="inner-bg-color-menu"></span></span>-->
+                    <span id="work-btn"  class="menu-btn btn note-icon" onclick="showWorkTab()"><span class="inner-bg-color-menu"></span></span>
+                    <!--<span id="cmnt-btn"  class="menu-btn btn edit-icon" onclick="showCommentsTab()"><span class="inner-bg-color-menu"></span></span>-->
+                    <span id="imgs-btn"  class="menu-btn btn files-icon" onclick="showFilesTab()"><span class="inner-bg-color-menu"></span></span>
+                    <span id="help-btn"  class="menu-btn btn help-icon" onclick="showHelpTab()"><span class="inner-bg-color-menu"></span></span>
+                    <!--<span id="timeline-btn"  class="menu-btn btn edit-icon" onclick="showTimelineTab()"><span class="inner-bg-color-menu"></span></span>-->
+                </div>
+                <div class="sections">
+                    <div id="settings-tab" class="section">
+                        Settings....
+                    </div>
+
+                    <div id="work-tab" class="section">
+                        <!--<div id="work-task-detail-panel">-->
+                        <div id="work-orders-panel" class="work-orders-panel">
+                            <span class="title"> Work Orders </span>
+                            <div class="work-list-scroller scroller overthrow">
+                                <div>
+                                    <ul id="work-list" class="work-list">
+                                        <li id="work-item-pattern" class="work-item {{activeOrSuspendedClass}}" data-bind="{{id}}" onclick="setActiveWorkOrder('_$id$_')">
+                                            <h5> {{complete}}% </h5>
+                                            <h3> {{title}} </h3>
+                                            <h4> {{subtitle}} </h4>
+                                            <span class="l-arrow"></span>
+                                            <span class="clear"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tasks-panel" class="tasks-panel" style="display:none;">
+                            <span class="title"> Tasks <span id="task-complete" class="task-complete"> 0 of 0 </span> </span>
+                            <div class="task-list-scroller scroller overthrow">
+                                <div>
+                                    <ul id="tasks-list" class="task-list invisible">
+                                        <li id="task-item-pattern" class="task-item {{activeOrSuspendedClass}}" data-bind="{{id}}" onclick="setActiveTask('_$id$_')">
+                                            <span class="round-arrow"></span>
+                                            <h3> {{title}} </h3>
+                                            <span class="round-status {{cssComplete}}"></span>
+                                            <span class="l-arrow"></span>
+                                            <span class="clear"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div id="details-panel" class="details-panel" style="display:none;">
+
+                            <div id="details-pattern" class="pattern details-panel-in-process">
+
+                                <span class="title">
+                                    <b class="title-btn btn" onclick="actionShowSiteInfo()" style="margin-top: -0.5em;" >View Site Info</b>
+                                    <strong>Task Details</strong>  
+                                    <span class="clear"></span>
+                                </span> 
+                                <!--<b class="move-button-horizontal left" onclick="moveDetailsPanel('left')"></b>-->
+                                <!--<b class="move-button-horizontal right" onclick="moveDetailsPanel('right')"></b>-->
+                                <div class="task-detail-scroller overthrow">
+                                    <span class="detail-title"> {{title}} </span>
+                                    <span class="detail-subtitle"> {{subtitle}} </span>
+                                    <div class="detail-content">
+                                        <div>
+                                            {{description}}
+                                        </div>
+                                        <div class="images">
+                                            <!-- in this container will be shown images of workOrder for current task -->
+                                        </div>
+                                        <div class="documents">
+
+                                        </div>
+                                        <div class="additionals">
+                                            <!-- in this container will be shown photos and comments of current task -->
+                                        </div>
+                                    </div>
+                                    <div class="details-panel-buttons {{doneSuspendClass}}  {{buttonsDisabledClass}}" >
+                                        <div class="detail-buttons">
+                                            <span class="edit detail-btn btn" onclick="actionCommentTask(this);"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="image detail-btn btn" onclick="actionAddPhoto(this, 'saved');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="photo detail-btn btn" onclick="actionAddPhoto(this, 'camera');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <div  class="action-buttons">
+                                            <span class="action-btn accept-btn btn" onclick="actionDoneTask(this);">    <span class="inner-bg-color"></span> </span>
+                                            <span class="action-btn suspend-btn btn" onclick="actionSuspendWork(this);"> Suspend <span class="inner-bg-color"> </span> </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                    </div>
+                                    <div class="details-panel-buttons {{resumeClass}} {{buttonsDisabledClass}}" >
+                                        <div class="detail-buttons">
+                                            <span class="edit detail-btn btn" onclick="actionCommentTask(this);"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="image detail-btn btn" onclick="actionAddPhoto(this, 'saved');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="photo detail-btn btn" onclick="actionAddPhoto(this, 'camera');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <div class="action-buttons">
+                                            <span class="action-btn suspend-btn" onclick="actionResumeWork(this);"> Resume </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="details-complete-pattern" class="details-panel-complete pattern" >
+                                <span class="title"> 
+                                    <b class="title-btn btn" onclick="actionShowSiteInfo()" style="margin-top: -0.5em;" >View Site Info</b>
+                                    <strong>Task Details </strong>
+                                </span>
+                                <!--<b class="utton-horizontal left" onclick="moveDetailsPanel('left')"></b>-->
+                                <!--<b class="move-button-horizontal right" onclick="moveDetailsPanel('right')"></b>-->
+                                <div class="container">
+                                    <div class="task-detail-scroller overthrow" >
+                                        <div class="c-header">
+                                            <!--<span class="plus"> + </span>-->
+                                            <span class="number"> {{n}} </span>
+                                            <span class="task-title"> {{title}}</span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <div class="c-body">
+                                            <span class="time"> {{fTime}} </span>
+                                            <span class="check"> &check; </span>
+                                            <span class="text"> {{status}} </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <div class="detail-content">
+                                            <div >
+                                                {{description}}
+                                            </div>
+                                            <div class="images">
+
+                                            </div>
+                                            <div class="documents">
+
+                                            </div>
+                                            <div class="additionals">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="details-panel-buttons">
+                                            <div class="detail-buttons">
+                                                <span class="edit detail-btn btn" onclick="actionCommentTask(this);"> <span class="activate-btn inner-bg-color"></span> </span>
+                                                <span class="image detail-btn btn" onclick="actionAddPhoto(this, 'saved');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                                <span class="photo detail-btn btn" onclick="actionAddPhoto(this, 'camera');"> <span class="activate-btn inner-bg-color"></span> </span>
+                                                <span class="clear"></span>
+                                            </div>
+                                            <!-- 
+                                            <div class="action-buttons">
+                                                <span class="action-btn suspend-btn btn" onclick="actionResumeWork(this);"> Resume <span class="activate-btn inner-bg-color"></span> </span>
+                                                <span class="clear"></span>
+                                            </div>
+                                            -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                        <!--</div>-->
+                        <div class="additionals invisible">
+                            <div id="comment-pattern" class="comment-container">
+                                <span class="comment-user-name">{{ownerName}}</span> 
+                                <span class="comment-date">{{fDate}}</span>
+                                <span class="clear"></span>
+                                <textarea class="comment-text-area" {{readonly}} >{{text}}</textarea>
+                                <div class="comment-buttons-area {{visibleBtnClass}}">
+                                    <b class="comment-btn " onclick="actionCancelComment(this)"> Cancel </b>
+                                    <b class="comment-btn " onclick="actionSaveComment(this)"> Save Comment </b>
+                                    <span class="clear"></span>
+                                </div>
+                            </div>
+                            <div id="photo-pattern" class="photo-container">
+                                <span class="photo-user-name">{{ownerName}}</span>
+                                <span class="photo-date">{{fDate}}</span>
+                                <span class="clear"></span>
+                                <div class="photo-wrapper">
+                                    <img alt="" src="{{imageSrc}}" class="photo" onclick="openInFullScreenView('_$imageSrc$_')" onload="onImageLoadSuccess(this)" onerror="onErrorLoadingImage(this)"  />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="site-info-panel" class="site-info-panel" style="display:none;">
+                            <div id="site-pattern"  style="">
+                                <span class="title">Site Details </span>
+                                <span class="detail-title"> {{title}} </span>
+                                <span class="detail-subtitle"> {{location}} </span>
+
+                                <!--<b class="move-button-horizontal left" onclick="moveDetailsPanel('left')"></b>-->
+                                <!--<b class="move-button-horizontal right" onclick="moveDetailsPanel('right')"></b>-->
+
+                                <div class="detail-content">
+                                    <pre>{{description}}</pre>
+                                </div>
+
+
+                                <div id="map-container" class="map-container noSwipe">
+
+                                    Map will be shown after loading all scripts
+                                </div>
+                                <span class="marker-row"><i class="green-marker marker"></i> Your location </span>
+                                <span class="marker-row"><i class="blue-marker marker"></i> Site Location </span>
+                                <span class="marker-row"><b class="standart-btn btn" onclick="openDocument('http://www.google.com/maps/place/_$lat$_,_$lng$_')" >Open Location</b>  </span>
+
+
+                                <div class="images"> 
+                                    <span id="site-image-pattern" class="image-wrapper noSwipe" >
+                                        <img  alt="{{name}}" src="{{fullUrl}}" class="site-image" onclick="openInFullScreenView('_$fullUrl$_')" onload="processImageOnLoad(this)" onerror="processImageOnError(this)" />
+                                    </span>
+                                </div>
+                                <div class="documents">
+                                    <span id="site-document-pattern" class="document-wrapper" >
+                                        <i class="href" onclick="openDocument('_$fullUrl$_')"> {{name}} </i>
+                                    </span>
+                                </div>
+                                <div class="buttons-panel"> 
+                                    <b class="start-btn action-btn btn" onclick="actionStartWork()"> <span>Start</span> </b> 
+                                    <b class="back-btn action-btn btn" onclick="actionBackToWorkOrders()"> <span>Back</span> </b> 
+                                </div>
+                                <span class="clear"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div id="questions-panel" class="questions-panel" style="display: none;">
+                            <div id="q-title" class="q-title">
+                                Questions  
+                                <span class="clear"></span>
+                            </div>
+
+                            <!--<b class="move-button-horizontal left" onclick="moveDetailsPanel('left')"></b>-->
+                            <!--<b class="move-button-horizontal right" onclick="moveDetailsPanel('right')"></b>-->
+
+                            <div id="questions-container" class="questions-container">
+                                <b class="scroll-up" onclick="scrollUp(this)" style="display: none;"></b>
+                                <div id="questions-wrapper" class="questions-wrapper">
+
+                                    <div id="paragraph-question-pattern" class="qst">
+                                        <p data-bind="{{id}}" class="qst-text">{{json.label}}</p>
+                                    </div>
+
+                                    <div id="text-question-pattern" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}" class="qst-text">{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}">
+                                            <input name="answer" class="text-input" onblur="addAnswer(this);" value="{{data.value}}" />
+
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+
+                                    <div id="textarea-question-pattern" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}" class="qst-text">{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}"> 
+                                            <textarea name="answer" class="text-area" onblur="addAnswer(this);" >{{data.value}}</textarea>
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+
+                                    <div id="file-question-pattern" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}" class="qst-text" >{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}"> 
+                                            <div class="upload-photos-list">
+                                                <div id="upload-photo-item-pattern" class="upload-photo-item pattern">
+                                                    <input name="name" type="text" class="text-input" value="{{name}}" readonly="readonly" />
+                                                    <input name="path" type="hidden" class="text-input" value="{{path}}" />
+                                                </div>
+                                            </div>
+                                            <b class="title-btn btn" onclick="makePhoto(this, 'saved');"> Open Existing Photo <span class="inner-bg-color title-btn-pressed" ></span> </b>
+                                            <b class="title-btn btn" onclick="makePhoto(this, 'camera');"> Add New Photo <span class="inner-bg-color title-btn-pressed"></span> </b>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+
+                                    <div id="checkboxes-question-pattern" data-bind="id:{{id}}" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}" class="qst-text" >{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}">
+                                            <span id="checkbox-question-pattern" class="row"> <input  name="cb_{{label}}" type="checkbox" class="checkbox" value="{{label}}" onchange="addAnswer(this);" /> {{label}} </span>
+                                            <span class="row"> <input name="{{label}}" type="checkbox" class="checkbox" value="{{value}}" /> {{value}} </span>
+                                            <span class="row"> <input name="{{label}}" type="checkbox" class="checkbox" value="{{value}}" /> {{value}} </span>
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+
+                                    <div id="radio-question-pattern" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}"  name="{{id}}" class="qst-text">{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}"> 
+                                            <span id="radio-button-question-pattern" class="row"> <input class="radio-button" name="radio_{{id}}" type="radio" value="{{label}}" onchange="addAnswer(this)"/> {{label}} </span>
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+
+                                    <div id="selectbox-question-pattern" class="qst">
+                                        <span class="{{requiredClass}}">*</span>
+                                        <p data-bind="{{id}}"  class="qst-text">{{json.label}}</p>
+                                        <div class="answer" data-bind="{{answerData}}"> 
+                                            <select class="selectbox" onchange="addAnswer(this)">
+                                                <option id="selectbox-option-question-pattern" value="{{label}}" >{{label}}</option>
+                                                <option value="{{value}}" >{{value}}</option>
+                                            </select>
+                                        </div>
+                                        <em class="errMsg"></em>
+                                    </div>
+                                </div>
+                                <b class="scroll-down" onclick="scrollDown(this)" style="display: none;"></b>
+                            </div>
+                            <div class="q-footer">
+                                <b id="continue-btn" data-bind="" class="action-btn btn" onclick="actionCheckAnswers(this);"> <span> Save  </span> <span  class="activate-btn"></span> </b>
+                                <b id="complete-btn" data-bind="" class="action-btn btn" onclick="actionCheckAnswers(this);"> <span> Completed </span> </b>
+                                <b id="cancel-btn"   data-bind="" class="action-btn btn" onclick="actionCancelAnswers(this);"> <span> Cancel  </span> <span  class="activate-btn"></span> </b>
+                                <span class="clear"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div id="files-tab" class="section">
+                        <iframe id="fileIframe" src="file.html" style="width: 100%; height: 99%;" >
+
+                        </iframe>
+                        <!--
+                        <br/>
+                        <span class="file-title" >FILES</span>  
+                        <b class="href" onclick="openDocument('http://app.oohmanager.com/attachments/site/documents/19/Installation%20Manual%20Stormflex%20Slim%20Backlight%206x3.pdf')">
+                            INSTALLATION MANUAL STORMFLEX SLIM BACKLIGHT WALL MOUNTED
+                        </b>
+                        <b class="href" onclick="openDocument('http://app.oohmanager.com/attachments/site/documents/19/Installation%20Manual%20Stormflex%20Slim%20Backlight%206x3.pdf')">
+                            Other file</b>
+                        <b class="href" onclick="openDocument('http://app.oohmanager.com/attachments/site/documents/19/Installation%20Manual%20Stormflex%20Slim%20Backlight%206x3.pdf')">
+                            More files</b>
+
+
+                        <br/>
+                        
+                        -->
+                    </div>
+
+                    <div id="help-tab" class="section">
+                        <!--                        
+                        <br/>
+                        <span class="file-title"  >HELP</span>
+                        <span class="file-title" >How to use the app</span>
+                        -->
+                        <iframe id="helpIframe" src="help.html" style="width: 100%; height: 99%" >
+
+                        </iframe>
+
+
+                    </div>
+
+                    <div id="timeline-tab" class="section">
+                        <div >
+                            TimeLine  (temp)
+                            <br/>
+                            <b class="btn" onclick="updateViewOfTimeline()"> update view of timeline </b>
+                            <br/>
+                            <div id="timeline"> 
+                                <div id="timeline-pattern" class="timeline-item">
+                                    <span style="color: steelblue;">{{realType}}</span>
+                                    <span style="color: steelblue;">{{type}}</span>
+                                    <span style="color: red;">{{fDate}}</span>
+                                    <span style="">{{uid}}</span>
+                                    <span>{{entityData}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="fs-photo-container" class="invisible fs-photo-container">
+                <ul class="fs-photo-panel">
+                    <!--
+                    <li class="zoom-in"></li>
+                    <li class="zoom-out"></li>
+                    <li class="zoom-fit"></li>
+                    <li class="zoom-full"></li>
+                    -->
+                    <li class="close" onclick="closeFullScreenView();"></li>
+                </ul>
+                <div id="fs-photo-wrapper" class="fs-photo-wrapper">
+                    <img id="photo" alt="photo" />
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </body>
+</html>

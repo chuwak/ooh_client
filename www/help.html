@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- === bootstrap ===  -->
+        <script type="text/javascript" src="js/libs/jq/jquery.min.js"></script>
+        <script src="js/libs/bootstrap/assets/js/bootstrap.js"></script>
+        <link rel="stylesheet" type="text/css" href="js/libs/bootstrap/assets/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="js/libs/bootstrap/assets/css/bootstrap-theme.min.css" />
+        <style>
+            *::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 0.5em;
+                border-radius: 0.5em;
+                background: rgba(100,100,100,0.5); 
+                -webkit-box-shadow: inset 0 0 0.5em rgba(0,0,0, 0.5); 
+            }
+
+            *::-webkit-scrollbar {
+                width: 0.8em;
+            }
+            *::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
+
+
+            html{
+                height: 100%;
+                overflow: auto;
+            }
+            body{
+                height: 100%;
+                overflow: auto;
+            }
+            
+            .wrapper{
+                margin: 1em;
+            }
+            
+            .title{
+                display: block;
+                font-size: 150%;
+            }
+            
+        </style>
+        <script>
+            function openDocument(url) {
+                window.parent.openDocument(url);
+            }
+
+            $(document).ready(function () {
+                $(document).on('click', function () {
+                    $(window.parent.document).find('body').click();
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        <div class="wrapper">
+            <span class="title">Help & Support</span> 
+            
+            This area covers basic use of the App. If you have specific questions 
+            please call Paul Flegate at Prismaflex on +44 (0)7787 433 596 or email 
+            <a href="#" onclick="return false;" class="href">pfelgate@prismaflex.com  </a>
+
+
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                1. Viewing a work order?                       
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+                            culpa qui officia deserunt mollit anim id est laborum.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                2. Uploading images 
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                Use the camera on your phone to take images and upload them to the App. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantiu. 
+
+
+                            </p>                    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                3. Aborting, pausing or suspending a work order?
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+                                culpa qui officia deserunt mollit anim id est laborum.
+                            </p>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        -->
+    </body>
+</html>

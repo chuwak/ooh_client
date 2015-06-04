@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OOH</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body id="body">
+        <div id="inner-body" class="wrap">
+            <div  class="main">
+                <header>
+                    <h1 class="title-container">
+                        <a class="logo" ></a>
+                        <strong>Setup</strong>
+                    </h1>
+                </header>
+                <div class="sections">
+                    <section class="content-section">
+                        <div class="overscroll">
+                            <div class="scroller section-entry">
+                                <div class="settings-holder">
+                                    <form id="login-form" action="" onsubmit="return false;">
+                                        <div class="row">
+                                            <label for="url-input"> URL of server </label>
+                                            <input id="url-input" type="text" name="url" value=""/>
+                                            <span class="errMsg">Error</span>
+                                        </div>
+                                        <div class="row" style="display: none;">
+                                            <label for="name-input"> Your Name </label>
+                                            <input id="name-input" type="text" name="name" value=""/>
+                                            <span class="errMsg">Error</span>
+                                        </div>
+                                        <div class="row" style="display: none;">
+                                            <label for="company-name-input"> Company Name </label>
+                                            <input id="company-name-input" type="text" name="company_name" value=""/>
+                                            <span class="errMsg">Error</span>
+                                        </div>
+                                        <div class="row "> <!-- class="row error" -->
+                                            <label for="_login">User ID</label>
+                                            <input id="_login" type="text" name="login" value="" maxlength="25"/>
+                                            <span class="errMsg">Error</span>
+                                        </div>
+                                        <div class="row "> <!-- class="row error" -->
+                                            <label for="_pass">Password</label>
+                                            <input id="_pass" type="password" name="password" value="" maxlength="25"/>
+                                            <span class="errMsg">Error</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="">
+                            <button class="btn back-button" type="button" value="Back" onclick="loadContent('main');" ><i class="icon back-icon"></i><span>Back</span></button>
+                            <!--<button class="btn btn-submit" type="button" value="Reset" onclick="resetSettings();"><i class="icon reset-data-icon"></i><span>Reset</span> </button>-->
+                            <button class="btn btn-submit" type="button" value="Login" onclick="alternateLogin();"><i class="icon login-icon"></i><span>Login</span> </button>
+                            <button class="btn btn-submit" type="button" value="Save" onclick="saveSettings();"><i class="icon save-icon"></i><span>Save</span> </button>
+                        </footer>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

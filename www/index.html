@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OOH</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" >
+            var isMobile = false;
+            if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {
+                isMobile = true;
+            }
+            var isAndroid = (/Android/i.test(navigator.userAgent)) ? true : false;
+            var isIos = (/iPhone|iPad|iPod/i.test(navigator.userAgent)) ? true : false;
+            if (isMobile) {
+                document.write('<script charset="utf-8" src="cordova.js" ><\/script>');
+            }
+            
+        </script>
+
+        <!-- === Jquery with plugins === -->
+        <script type="text/javascript" src="js/libs/jq/jquery.min.js"></script>
+        <script type="text/javascript" src="js/libs/jq/jquery.color-2.1.0.min.js"></script>
+        <script type="text/javascript" src="js/libs/jq/jquery.touchSwipe.js"></script>
+        <script type="text/javascript" src="js/libs/block_ui.js"></script>
+        <script type="text/javascript" src="js/libs/noty/jquery.noty.packaged.js"></script>
+
+
+        <!-- Dipendenze e Layout di esempio -->
+        <script src="js/libs/tpv/jquery.easing.js"></script>
+        <!-- Dependencies -->
+        <script src="js/libs/tpv/jquery.imagesloaded.js"></script>
+        <script src="js/libs/tpv/jquery.jgestures.js"></script>
+        <script src="js/libs/tpv/jquery.doubletap.js"></script>
+        <!-- Plugin's Assets -->
+        <link rel="stylesheet" href="./js/libs/tpv/tpv.css">
+        <script src="js/libs/tpv/jquery.touchpanview.js"></script>
+
+        <!-- === Scrollbars ===  -->
+        <!--        
+        <script type="text/javascript" src="js/libs/scroll/jquery.mCustomScrollbar.min.js"></script>
+        <link href="js/libs/scroll/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+        -->
+        <!--<script type="text/javascript" src="js/libs/scroll/jquery.nicescroll.min.js"></script>-->
+        <!--        
+                <script src="js/libs/overthrow/overthrow-detect.js"></script>
+                <script src="js/libs/overthrow/overthrow-polyfill.js"></script>
+                <script src="js/libs/overthrow/overthrow-toss.js"></script>
+                <script src="js/libs/overthrow/overthrow-init.js"></script>
+                <script src="js/libs/overthrow/anchorscroll.overthrow.js"></script>
+        -->
+
+
+
+        <!-- === Local files ===  -->
+        <script src="js/lang.js"></script>
+        <script src="js/beans.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/logic.js"></script>
+        <script src="js/phonegap.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/requests.js"></script>
+
+    </head>
+    <body id="body" class="landscape">
+        <div id="inner-body" class="inner-body" style="visibility: hidden;">
+            <header class="header">
+                <div class="login-title-wrapper">
+                    <strong>Login</strong>
+                </div>
+                <span class="clear"></span>
+            </header>
+            <section id="inner-content">
+                <div class="login-holder">
+                    <form id="login-form" action="" onsubmit="submitLoginForm();
+                return false;">
+                        <div class="row "> <!-- class="row error" -->
+                            <label for="_username">Username</label>
+                            <input id="_username" type="text" name="username" value="" maxlength="48"/>
+                            <span class="errMsg">Error</span>
+                        </div>
+                        <div class="row "> <!-- class="row error" -->
+                            <label for="_pass">Password</label>
+                            <input id="_pass" type="password" name="password" value="" maxlength="48"/>
+                            <span class="errMsg">Error</span>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-submit" type="submit"><span>Login</span></button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

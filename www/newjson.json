@@ -1,0 +1,24 @@
+{
+    "id": -1,
+    "questionId": 639,
+    "description": "",
+    "answerEnumId": 6,
+    "data": {
+        "values": [{
+                "name": "emulatedName",
+                "path": "nativePath"
+            }, {
+                "name": "emulatedName",
+                "path": "nativePath"
+            }, {
+                "name": "emulatedName",
+                "path": "nativePath"
+            }]
+    },
+    "sync": false,
+    "lat": 49.586314699999996,
+    "lng": 34.546707,
+    "createdOn": "2014-10-24 18:23:19",
+    "createdBy": 137,
+    "uid": "4c780060-1418-492a-f57b-bd34e73eb2eb"
+}
