@@ -1,5 +1,7 @@
 
-ooh.host = 'http://www.app.oohmanager.com/'; 
+//ooh.host = 'http://www.app.oohmanager.com/'; 
+//ooh.host = 'http://localhost/ooh/'
+ooh.host = 'http://159.224.220.233/ooh/'
 var urls = {
     login: 'api/login', // contractor.json
     workOrders: 'api/getworkordersbyuserid', //'works.json'

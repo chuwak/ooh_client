@@ -692,7 +692,7 @@ function actionSuspendWork(element) {
     var modTask = new ModTask(currTask);
     addTaskToModifiedTasks(modTask);
     addEntityToTimeline(modTask);
-    
+
     var currWorkOrder = ooh.currWorkOrder;
     currWorkOrder.statusId = 5;
     var modWorkOrder = new ModWorkOrder(currWorkOrder);
@@ -712,14 +712,14 @@ function actionResumeWork(element) {
     if (isDibabled) {
         return;
     }
-    
+
     var currTask = ooh.currTask;
     currTask.statusId = 3;
     var modTask = new ModTask(currTask);
     addTaskToModifiedTasks(modTask);
     addEntityToTimeline(modTask);
-    
-    
+
+
     var currWorkOrder = ooh.currWorkOrder;
     currWorkOrder.statusId = 1;
     currWorkOrder.suspendAnswersCompleted = false; // reset
@@ -911,62 +911,68 @@ function isButtonsDisabled(element) {
 
 //=======================  check answers  ========================
 function actionCheckAnswers(element) {
-    var $answers = $('.answer');
-    var checked = true;
-    $answers.each(function () {
-        var $answer = $(this);
-        var answerDataStr = $answer.attr('data-bind');
-        var answerData = stringToObject(answerDataStr);
-        if (answerData.required === true) {
-            if (answerData.enum === 1) {
-                var $inputField = $answer.find('input');
-                if (hasAnswerTextFieldError($inputField)) {
-                    checked = false;
+
+    setTimeout(process, 500);
+
+    function process() {
+
+        var $answers = $('.answer');
+        var checked = true;
+        $answers.each(function () {
+            var $answer = $(this);
+            var answerDataStr = $answer.attr('data-bind');
+            var answerData = stringToObject(answerDataStr);
+            if (answerData.required === true) {
+                if (answerData.enum === 1) {
+                    var $inputField = $answer.find('input');
+                    if (hasAnswerTextFieldError($inputField)) {
+                        checked = false;
+                    }
+                }
+                if (answerData.enum === 3) {
+                    var $checkboxes = $answer.find('input[type=checkbox]');
+                    if (hasAnswerCheckboxesError($checkboxes)) {
+                        checked = false;
+                    }
+                }
+                if (answerData.enum === 6) {
+                    //var $filePathField = $answer.find('input[name=path]');
+                    //var $fileNameField = $answer.find('input[name=name]');
+                    var $uploadPhotosList = $answer.find('.upload-photos-list');
+                    if (hasAnswerFileError($uploadPhotosList)) {
+                        checked = false;
+                    }
+                }
+                if (answerData.enum === 7) {
+                    var $selectbox = $answer.find('select');
+                    if (hasAnswerSelectboxError($selectbox)) {
+                        checked = false;
+                    }
+                }
+                if (answerData.enum === 8) {
+                    var $radioButtons = $answer.find('input[type=radio]');
+                    if (hasAnswerRadioButtonError($radioButtons)) {
+                        checked = false;
+                    }
+                }
+                if (answerData.enum === 10) {
+                    var $inputField = $answer.find('textarea');
+                    if (hasAnswerTextFieldError($inputField)) {
+                        checked = false;
+                    }
                 }
             }
-            if (answerData.enum === 3) {
-                var $checkboxes = $answer.find('input[type=checkbox]');
-                if (hasAnswerCheckboxesError($checkboxes)) {
-                    checked = false;
-                }
-            }
-            if (answerData.enum === 6) {
-                //var $filePathField = $answer.find('input[name=path]');
-                //var $fileNameField = $answer.find('input[name=name]');
-                var $uploadPhotosList = $answer.find('.upload-photos-list');
-                if (hasAnswerFileError($uploadPhotosList)) {
-                    checked = false;
-                }
-            }
-            if (answerData.enum === 7) {
-                var $selectbox = $answer.find('select');
-                if (hasAnswerSelectboxError($selectbox)) {
-                    checked = false;
-                }
-            }
-            if (answerData.enum === 8) {
-                var $radioButtons = $answer.find('input[type=radio]');
-                if (hasAnswerRadioButtonError($radioButtons)) {
-                    checked = false;
-                }
-            }
-            if (answerData.enum === 10) {
-                var $inputField = $answer.find('textarea');
-                if (hasAnswerTextFieldError($inputField)) {
-                    checked = false;
-                }
-            }
+
+        });
+        if (checked === false) {
+            showMessage(aMsg.answersHasErrors, 'warning');
+            return;
         }
 
-    });
-    if (checked === false) {
-        showMessage(aMsg.answersHasErrors, 'warning');
-        return;
+
+        questionsListProcess(element);
+
     }
-
-
-    questionsListProcess(element);
-
 }
 
 
@@ -1013,7 +1019,7 @@ function questionsListProcess(element) {
     for (var i in questionsOfSelectedType) {
         var questionOfSelectedType = questionsOfSelectedType[i];
         var answerOfQuestion = findAnswerOfQuestionById(ooh.answers, questionOfSelectedType.id);
-        if(answerOfQuestion){
+        if (answerOfQuestion) {
             answerUidsToDelete.push(answerOfQuestion.uid);
             answersOfQuestions.push(answerOfQuestion);
         }
@@ -1059,7 +1065,7 @@ function actionCancelAnswers(element) {
         fillDetailsTab(task);
         fillWorkOrdersTab();
         showTasksPanel();
-        
+
     }
     if (listType === 'final') {
         currWorkOrder.statusId = 3;
@@ -1105,7 +1111,7 @@ function uploadingImagesAfterAnswer(answersArr, callback) {
         var additionalParams;
         var formParams;
         url = ooh.host + urls.uploadPhoto;
-        
+
         function oneFileUploaded(result) {
             if (result.status.error) {
                 callback({status: {error: true}, error: result.error});
@@ -1132,8 +1138,8 @@ function uploadingImagesAfterAnswer(answersArr, callback) {
 
         prepareParams(currTempAnswerPhoto);
         uploadFile(url, mediaFile, currTempAnswerPhoto.name, formParams, 'image', oneFileUploaded);
-        
-        
+
+
         function prepareParams(value) {
             mediaFile = {
                 fullPath: currTempAnswerPhoto.path,
