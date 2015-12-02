@@ -1,5 +1,8 @@
 
-ooh.host = 'http://www.app.oohmanager.com/';
+//ooh.host = 'http://www.app.oohmanager.com/';
+//ooh.host = 'http://localhost/ooh/';
+ooh.host = 'http://www.rocbeta.com/b/';
+
 var urls = {
     login: 'api/login', // contractor.json
     workOrders: 'api/getworkordersbyuserid', //'works.json'
