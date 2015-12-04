@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.apes.ooh" version="0.9.2">
+    <name>OOH</name>
+    <description>Dorset Creative</description>
+    <author email="" href="http://dorsetcreative.co.uk/">admin</author>
+    <access origin="*"/>
+    <content src="index.html"/>
+    
+    <gap:plugin name="org.apache.cordova.camera"/>
+    <gap:plugin name="org.apache.cordova.file"/>
+    <gap:plugin name="org.apache.cordova.file-transfer"/>
+    <gap:plugin name="org.apache.cordova.dialogs"/>
+    <gap:plugin name="org.apache.cordova.device"/>
+    <gap:plugin name="org.apache.cordova.device-orientation"/>
+    <gap:plugin name="org.apache.cordova.console"/>
+    <gap:plugin name="org.apache.cordova.network-information"/>
+    <gap:plugin name="org.apache.cordova.splashscreen"/>
+    <gap:plugin name="org.apache.cordova.inappbrowser"/>
+    <!--<gap:plugin name="org.devgeeks.canvas2imageplugin"/>-->
+    <!--<gap:plugin name="com.apes.plugins.canvastodataurl"/>-->
+    <gap:plugin name="net.bgta.phonegap.plugin.appversion"/>
+    
+
+    
+    
+    
+    <preference name="fullscreen" value="false"/>
+    <preference name="webviewbounce" value="true"/>
+    
+    <!--<preference name="orientation" value="both"/>  landscape portrait -->
+    <preference name="target-device" value="universal"/>
+    <preference name="fullscreen" value="false"/>
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="KeyboardShrinksView" value="false"/>
+    
+    <preference name="android-windowSoftInputMode" value="stateUnchanged|adjustResize"/>
+    <preference name="android-minSdkVersion" value="8"/>
+    <preference name="android-targetSdkVersion" value="19"/>
+    <preference name="phonegap-version" value="3.7.0"/>
+    <preference name="exit-on-suspend" value="false"/>
+    <preference name="webviewbounce" value="false"/>
+    
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="SplashScreenDelay" value="10000"/>
+    
+    
+    
+    <icon src="res/icon/icon.png"/>
+    <gap:splash src="res/screen/screen.png"/>
+<!--    
+    <icon gap:platform="android" height="96" src="/res/icon/android/icon-96-xhdpi.png" width="96"/>
+    <icon gap:platform="android" height="72" src="/res/icon/android/icon-72-hdpi.png" width="72"/>
+    <icon gap:platform="android" height="48" src="/res/icon/android/icon-48-mdpi.png" width="48"/>
+    <icon gap:platform="android" height="36" src="/res/icon/android/icon-36-ldpi.png" width="36"/>
+    -->
+    <platform name="android">
+        <icon src="res/icon/icon.png"/> 
+        <icon src="res/icon/android/icon-36-ldpi.png" density="ldpi" />
+        <icon src="res/icon/android/icon-48-mdpi.png" density="mdpi" />
+        <icon src="res/icon/android/icon-72-hdpi.png" density="hdpi" />
+        <icon src="res/icon/android/icon-96-xhdpi.png" density="xhdpi" />
+
+        <splash src="res/screen/android/screen-hdpi-portrait.png" density="port-hdpi"/>
+        <splash src="res/screen/android/screen-hdpi-portrait.png" density="port-ldpi"/>
+        <splash src="res/screen/android/screen-hdpi-portrait.png" density="port-mdpi"/>
+        <splash src="res/screen/android/screen-hdpi-portrait.png" density="port-xhdpi"/>
+    </platform>
+</widget>
